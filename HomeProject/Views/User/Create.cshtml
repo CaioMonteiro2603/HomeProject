@@ -1,0 +1,31 @@
+﻿@model UserModel
+
+<div class="text-center">
+    <h1 class="display-4">Create a new user</h1>
+</div>
+
+<form asp-controller="User" asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="UserName" class="form-label">Name</label>
+        <input type="text" asp-for="UserName" class="form-control" placeholder="Enter with your name">
+        @Html.ValidationMessageFor(c => c.UserName)
+    </div>
+    <div class="form-group">
+        <label for="UserLastName" class="form-label">LastName</label>
+        <input type="text" asp-for="UserLastName" class="form-control" placeholder="Enter with your lastname">
+        @Html.ValidationMessageFor(c => c.UserLastName)
+    </div>
+    <div class="form-group">
+        <label for="UserEmail" class="form-label">Email</label>
+        <input type="text" asp-for="UserEmail" class="form-control" placeholder="Write an email to register">
+        @Html.ValidationMessageFor(c => c.UserEmail)
+    </div>
+    <div class="form-group">
+        <label for="" class="form-label">Password</label>
+        <input type="password" asp-for="UserPassword" class="form-control" placeholder="Write an password">
+        @Html.ValidationMessageFor(c => c.UserPassword)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add</button>
+    <a class="btn btn-secondary" asp-controller="User" asp-action="Index" role="button">Voltar</a>
+</form>

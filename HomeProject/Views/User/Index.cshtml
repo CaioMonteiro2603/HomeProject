@@ -1,0 +1,67 @@
+﻿@model List<UserModel>
+
+@{
+    TempData["Title"] = "List of users"; 
+}
+
+<div class="text-center">
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-primary" role="button" asp-controller="User" asp-action="Create">Add a new user</a>
+    </div>
+
+    <br />
+
+    @if (TempData["SucessMessage"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" data-bs-dismiss="alert" arial-label="Close">x</button>
+            @TempData["SucessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btnsmall close-alert" data-bs-dismiss="alert" arial-label="Close">x</button>
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+
+    <h2 class="display-4">List of users</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">LastName</th>
+                <th scope="col">Email</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @if (Model != null && Model.Any())
+            {
+                foreach (UserModel user in Model)
+                {
+                    <tr>
+                        <th scope="row">@user.UserId</th>
+                        <td>@user.UserName</td>
+                        <td>@user.UserLastName</td>
+                        <td>@user.UserEmail</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a role="button" class="btn btn-primary" asp-route-id="@user.UserId" asp-controller="User" asp-action="Edit">Edit</a> |
+                                <a role="button" class="btn btn-primary" asp-route-id="@user.UserId" asp-controller="User" asp-action="Delete">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+</div>
