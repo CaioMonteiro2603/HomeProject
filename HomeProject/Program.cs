@@ -1,4 +1,6 @@
 using HomeProject.Data;
+using HomeProject.Helper;
+using HomeProject.Helper.Interface;
 using HomeProject.Repository;
 using HomeProject.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -18,8 +20,16 @@ namespace HomeProject
 
             builder.Services.AddDbContext<Context>(options => options.UseSqlServer(connectingString).EnableSensitiveDataLogging(true));
 
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
+            builder.Services.AddScoped<ISessionn, Sessionn>();
+
+            builder.Services.AddSession(o =>
+            {
+                o.Cookie.HttpOnly = true;
+                o.Cookie.IsEssential = true; 
+            }); // config session
 
             var app = builder.Build();
 
@@ -37,10 +47,11 @@ namespace HomeProject
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession(); //config session
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Login}/{action=Index}/{id?}");
 
             app.Run();
         }

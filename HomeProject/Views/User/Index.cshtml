@@ -1,7 +1,7 @@
 ﻿@model List<UserModel>
 
 @{
-    TempData["Title"] = "List of users"; 
+    ViewData["Title"] = "List of users"; 
 }
 
 <div class="text-center">
@@ -38,6 +38,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">LastName</th>
                 <th scope="col">Email</th>
+                <th scope="col">Login</th>
             </tr>
         </thead>
 
@@ -52,6 +53,7 @@
                         <td>@user.UserName</td>
                         <td>@user.UserLastName</td>
                         <td>@user.UserEmail</td>
+                        <td>@user.Login</td>
                         <td>
                             <div class="btn-group" role="group">
                                 <a role="button" class="btn btn-primary" asp-route-id="@user.UserId" asp-controller="User" asp-action="Edit">Edit</a> |

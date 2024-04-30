@@ -1,9 +1,11 @@
-﻿using HomeProject.Models;
+﻿using HomeProject.Filters;
+using HomeProject.Models;
 using HomeProject.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomeProject.Controllers
 {
+    [PageUserLogin]
     public class VehicleController : Controller
     {
         private readonly IVehicleRepository _vehicleRepository;

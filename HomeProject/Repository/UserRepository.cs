@@ -27,6 +27,13 @@ namespace HomeProject.Repository
             return user;
         }
 
+        public UserModel FindByLogin(string login)
+        {
+            var user = _context.User.FirstOrDefault(l => l.Login.ToUpper() == login.ToUpper());
+
+            return user; 
+        }
+
         public int Insert(UserModel userModel)
         {
             _context.User.Add(userModel);
@@ -35,7 +42,7 @@ namespace HomeProject.Repository
             return userModel.UserId; 
         }
 
-        public void Update(UserModel userModel)
+        public UserModel Update(UserModel userModel)
         {
             UserModel userDB = FindById(userModel.UserId);
 
@@ -44,10 +51,12 @@ namespace HomeProject.Repository
             userDB.UserName = userModel.UserName;
             userDB.UserLastName = userModel.UserLastName;
             userDB.UserEmail = userModel.UserEmail;
-            userDB.UserPassword = userModel.UserPassword;
+            userDB.Login = userModel.Login; 
 
             _context.User.Update(userDB);
             _context.SaveChanges();
+
+            return userDB;  
         }
 
         public bool Delete(int id)

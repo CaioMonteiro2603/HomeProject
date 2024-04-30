@@ -1,9 +1,11 @@
+using HomeProject.Filters;
 using HomeProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace HomeProject.Controllers
 {
+    [PageUserLogin] // filtro criado para controlar a sessao de usuarios
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

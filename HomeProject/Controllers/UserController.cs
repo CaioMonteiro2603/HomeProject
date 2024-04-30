@@ -1,9 +1,11 @@
-﻿using HomeProject.Models;
+﻿using HomeProject.Filters;
+using HomeProject.Models;
 using HomeProject.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomeProject.Controllers
 {
+    [PageOnlyAdmin]
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
@@ -61,10 +63,33 @@ namespace HomeProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(UserModel userModel)
+        public IActionResult Edit(UserModelWithoutPassword userModelWithoutPassword)
         {
-            _userRepository.Update(userModel);
-            return RedirectToAction(nameof(userModel)); 
+            try
+            {
+                UserModel user = null;
+
+                if (ModelState.IsValid)
+                {
+                    user = new UserModel()
+                    {
+                        UserId = userModelWithoutPassword.Id,
+                        UserName = userModelWithoutPassword.Name,
+                        UserLastName = userModelWithoutPassword.LastName,
+                        UserEmail = userModelWithoutPassword.Email, 
+                        Login = userModelWithoutPassword.Login
+                    };
+
+                    user = _userRepository.Update(user);
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(user); 
+            } catch(Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+                return RedirectToAction(nameof(Index)); 
+            }
+             
         }
 
         [HttpGet]

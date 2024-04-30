@@ -8,7 +8,9 @@ namespace HomeProject.Repository.Interface
 
         public UserModel FindById(int id);
 
-        public void Update(UserModel userModel);
+        public UserModel FindByLogin(string login); 
+
+        public UserModel Update(UserModel userModel);
 
         public int Insert(UserModel userModel);
 

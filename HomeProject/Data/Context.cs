@@ -16,5 +16,7 @@ namespace HomeProject.Data
         protected Context()
         {
         }
+
+        
     }
 }

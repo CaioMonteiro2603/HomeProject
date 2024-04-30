@@ -16,6 +16,9 @@ namespace HomeProject.Models
         [Required(ErrorMessage = "User's lastname is required")]
         public string UserLastName { get; set; }
 
+        [Required]
+        public string Login { get; set; }
+
         [Required(ErrorMessage = "User's email is required")]
         public string UserEmail { get; set; }
 
@@ -34,6 +37,11 @@ namespace HomeProject.Models
             UserLastName = userLastName;
             UserEmail = userEmail;
             UserPassword = userPassword;
+        }
+
+        public bool SenhaValida(string senha)
+        {
+            return UserPassword == senha;  
         }
     }
 }
